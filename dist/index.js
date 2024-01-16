@@ -60,58 +60,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var db = __importStar(require("./db-connection"));
+var body_parser_1 = __importDefault(require("body-parser"));
 var app = express_1.default();
+var jsonParser = body_parser_1.default.json();
 app.get('/', function (req, res) {
     res.send('Hello from express and typescript');
 });
-app.get('/alumnos/:alumno', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                console.log("SELECT * FROM alumnos WHERE name ='" + req.params.alumno + "'");
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("SELECT * FROM alumnos WHERE name ='" + req.params.name + "'")];
-            case 2:
-                result = _a.sent();
-                res.json(result.rows);
-                return [3 /*break*/, 4];
-            case 3:
-                err_1 = _a.sent();
-                console.error(err_1);
-                res.status(500).send('Internal Server Error');
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); });
-app.get('/alumnos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                console.log("SELECT * FROM alumnos WHERE name = '" + req.query.name + "'");
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("SELECT * FROM alumnos WHERE name ='" + req.query.name + "'")];
-            case 2:
-                result = _a.sent();
-                res.json(result.rows);
-                return [3 /*break*/, 4];
-            case 3:
-                err_2 = _a.sent();
-                console.error(err_2);
-                res.status(500).send('Internal Server Error');
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); });
 app.get('/cortes', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_3;
+    var result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -125,8 +81,77 @@ app.get('/cortes', function (req, res) { return __awaiter(void 0, void 0, void 0
                 res.json(result.rows);
                 return [3 /*break*/, 4];
             case 3:
+                err_1 = _a.sent();
+                console.error(err_1);
+                res.status(500).send('Internal Server Error');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+app.get('/cliente/:cliente', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var usuario, result, err_2, result, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log("ENDPOINT: /cliente/:cliente");
+                console.log("INPUT VALUES: " + req.params.cliente);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.query("SELECT * FROM cliente WHERE id = '" + req.params.cliente + "'")];
+            case 2:
+                result = _a.sent();
+                console.log(JSON.stringify(result.rows));
+                usuario = result.rows;
+                return [3 /*break*/, 4];
+            case 3:
+                err_2 = _a.sent();
+                console.error(err_2);
+                res.status(500).send('Error al recuperar el cliente de la base de datos');
+                return [3 /*break*/, 4];
+            case 4:
+                if (!(usuario.length > 0)) return [3 /*break*/, 5];
+                // El usuario existe
+                console.log("El usuario ya existe");
+                res.json({ user: usuario[0], creado: false });
+                return [3 /*break*/, 8];
+            case 5:
+                _a.trys.push([5, 7, , 8]);
+                return [4 /*yield*/, db.query("INSERT INTO cliente (id) VALUES ('" + req.params.cliente + "')")];
+            case 6:
+                result = _a.sent();
+                console.log(result);
+                res.json({ user: { id: req.params.cliente }, creado: true });
+                return [3 /*break*/, 8];
+            case 7:
                 err_3 = _a.sent();
                 console.error(err_3);
+                res.status(500).send('Internal Server Error, al crear al usuario');
+                return [3 /*break*/, 8];
+            case 8: return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/cliente', jsonParser, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log(req.body);
+                console.log("INSERT INTO cliente VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.age + ")");
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.query("INSERT INTO cliente VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.age + ")")];
+            case 2:
+                result = _a.sent();
+                console.log(result);
+                res.json("Datos guardados correctamente");
+                return [3 /*break*/, 4];
+            case 3:
+                err_4 = _a.sent();
+                console.error(err_4);
                 res.status(500).send('Internal Server Error');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
