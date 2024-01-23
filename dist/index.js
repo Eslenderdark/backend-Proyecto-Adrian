@@ -158,5 +158,74 @@ app.post('/cliente', jsonParser, function (req, res) { return __awaiter(void 0, 
         }
     });
 }); });
+app.get('/citas/:citas', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var cita, result, err_5, result, err_6;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log("ENDPOINT: /citas/:citas");
+                console.log("INPUT VALUES: " + req.params.citas);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.query("SELECT * FROM citas WHERE id = '" + req.params.citas + "'")];
+            case 2:
+                result = _a.sent();
+                console.log(JSON.stringify(result.rows));
+                cita = result.rows;
+                return [3 /*break*/, 4];
+            case 3:
+                err_5 = _a.sent();
+                console.error(err_5);
+                res.status(500).send('Error al recuperar el citas de la base de datos');
+                return [3 /*break*/, 4];
+            case 4:
+                if (!(cita.length > 0)) return [3 /*break*/, 5];
+                // La cita existe
+                console.log("La cita ya existe");
+                res.json({ cita: cita[0], creado: false });
+                return [3 /*break*/, 8];
+            case 5:
+                _a.trys.push([5, 7, , 8]);
+                return [4 /*yield*/, db.query("INSERT INTO citas (id) VALUES ('" + req.params.citas + "')")];
+            case 6:
+                result = _a.sent();
+                console.log(result);
+                res.json({ cita: { id: req.params.citas }, creado: true });
+                return [3 /*break*/, 8];
+            case 7:
+                err_6 = _a.sent();
+                console.error(err_6);
+                res.status(500).send('Internal Server Error, al crear la cita');
+                return [3 /*break*/, 8];
+            case 8: return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/citas', jsonParser, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_7;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log(req.body);
+                console.log("INSERT INTO citas (id,id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES (" + req.body.id + ",'" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")");
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.query("INSERT INTO citas (id,id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES (" + req.body.id + ",'" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")")];
+            case 2:
+                result = _a.sent();
+                console.log(result);
+                res.json("Datos guardados correctamente");
+                return [3 /*break*/, 4];
+            case 3:
+                err_7 = _a.sent();
+                console.error(err_7);
+                res.status(500).send('Internal Server Error');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
 var port = process.env.PORT || 3000;
 app.listen(port, function () { return console.log("App listening on PORT " + port); });
