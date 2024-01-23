@@ -100,9 +100,9 @@ app.get('/citas/:citas', async (req, res) => {
 
 app.post('/citas', jsonParser, async (req, res) => {
   console.log(req.body)
-  console.log(`INSERT INTO citas (id,id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES (${req.body.id},'${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index})`);
+  console.log(`INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index})`);
   try {
-    const result = await db.query(`INSERT INTO citas (id,id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES (${req.body.id},'${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index})`);
+    const result = await db.query(`INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index})`);
     console.log(result);
     res.json("Datos guardados correctamente");
   } catch (err) {

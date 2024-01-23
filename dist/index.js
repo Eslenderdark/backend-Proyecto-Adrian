@@ -208,11 +208,11 @@ app.post('/citas', jsonParser, function (req, res) { return __awaiter(void 0, vo
         switch (_a.label) {
             case 0:
                 console.log(req.body);
-                console.log("INSERT INTO citas (id,id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES (" + req.body.id + ",'" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")");
+                console.log("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")");
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("INSERT INTO citas (id,id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES (" + req.body.id + ",'" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")")];
+                return [4 /*yield*/, db.query("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")")];
             case 2:
                 result = _a.sent();
                 console.log(result);
