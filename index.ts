@@ -98,11 +98,25 @@ app.get('/citas/:citas', async (req, res) => {
   }
 });
 
+app.get('/citas', async (req, res) => {
+
+  console.log(`select * from citas INNER JOIN cortes ON citas.id_corte = cortes.id`);
+
+  try {
+    const result = await db.query(`select * from citas INNER JOIN cortes ON citas.id_corte = cortes.id`);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 app.post('/citas', jsonParser, async (req, res) => {
   console.log(req.body)
-  console.log(`INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index})`);
+  console.log(`INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index},'${req.body.nombre}')`);
   try {
-    const result = await db.query(`INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index})`);
+    const result = await db.query(`INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('${req.body.id_cliente}',${req.body.id_corte},${req.body.precio},'${req.body.hora}','${req.body.dia}',${req.body.col_index},${req.body.row_index},'${req.body.nombre}')`);
     console.log(result);
     res.json("Datos guardados correctamente");
   } catch (err) {

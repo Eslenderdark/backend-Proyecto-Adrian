@@ -202,25 +202,48 @@ app.get('/citas/:citas', function (req, res) { return __awaiter(void 0, void 0, 
         }
     });
 }); });
-app.post('/citas', jsonParser, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.get('/citas', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_7;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(req.body);
-                console.log("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")");
+                console.log("select * from citas INNER JOIN cortes ON citas.id_corte = cortes.id");
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ")")];
+                return [4 /*yield*/, db.query("select * from citas INNER JOIN cortes ON citas.id_corte = cortes.id")];
+            case 2:
+                result = _a.sent();
+                res.json(result.rows);
+                return [3 /*break*/, 4];
+            case 3:
+                err_7 = _a.sent();
+                console.error(err_7);
+                res.status(500).send('Internal Server Error');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/citas', jsonParser, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_8;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log(req.body);
+                console.log("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ",'" + req.body.nombre + "')");
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.query("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ",'" + req.body.nombre + "')")];
             case 2:
                 result = _a.sent();
                 console.log(result);
                 res.json("Datos guardados correctamente");
                 return [3 /*break*/, 4];
             case 3:
-                err_7 = _a.sent();
-                console.error(err_7);
+                err_8 = _a.sent();
+                console.error(err_8);
                 res.status(500).send('Internal Server Error');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
