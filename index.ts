@@ -27,9 +27,9 @@ app.get('/cliente/:cliente', async (req, res) => {
   console.log("ENDPOINT: /cliente/:cliente");
   console.log("INPUT VALUES: " + req.params.cliente);
   let usuario;
-  // 1. Buscar el cliente en la tabla 'cliente'
+  // 1. Buscar el cliente en la tabla 'clientes'
   try {
-    const result = await db.query("SELECT * FROM cliente WHERE id = '" + req.params.cliente + "'");
+    const result = await db.query("SELECT * FROM clientes WHERE id = '" + req.params.cliente + "'");
     console.log(JSON.stringify(result.rows))
     usuario = result.rows;
   } catch (err) {
@@ -44,7 +44,7 @@ app.get('/cliente/:cliente', async (req, res) => {
   } else {
     // El usuario no existe
     try {
-      const result = await db.query(`INSERT INTO cliente (id) VALUES ('${req.params.cliente}')`);
+      const result = await db.query(`INSERT INTO clientes (id) VALUES ('${req.params.cliente}')`);
       console.log(result);
       res.json({ user: { id: req.params.cliente }, creado: true });
     } catch (err) {
@@ -56,9 +56,9 @@ app.get('/cliente/:cliente', async (req, res) => {
 
 app.post('/cliente', jsonParser, async (req, res) => {
   console.log(req.body)
-  console.log(`INSERT INTO cliente VALUES (${req.body.id}, '${req.body.name}', ${req.body.age})`);
+  console.log(`INSERT INTO clientes VALUES (${req.body.id}, '${req.body.name}', ${req.body.admin})`);
   try {
-    const result = await db.query(`INSERT INTO cliente VALUES (${req.body.id}, '${req.body.name}', ${req.body.age})`);
+    const result = await db.query(`INSERT INTO clientes VALUES (${req.body.id}, '${req.body.name}', ${req.body.admin})`);
     console.log(result);
     res.json("Datos guardados correctamente");
   } catch (err) {
@@ -125,6 +125,18 @@ app.post('/citas', jsonParser, async (req, res) => {
   }
 });
 
+app.get('/citas/:id_cliente', async (req, res) => {
+  
+  console.log(req.body);
+  try {
+    const result = await db.query("DELETE FROM citas WHERE id_cliente = '" + req.params.id_cliente + "'");
+    console.log(result);
+    res.json("Datos eliminados correctamente");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 const port = process.env.PORT || 3000;
 

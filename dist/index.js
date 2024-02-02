@@ -99,7 +99,7 @@ app.get('/cliente/:cliente', function (req, res) { return __awaiter(void 0, void
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("SELECT * FROM cliente WHERE id = '" + req.params.cliente + "'")];
+                return [4 /*yield*/, db.query("SELECT * FROM clientes WHERE id = '" + req.params.cliente + "'")];
             case 2:
                 result = _a.sent();
                 console.log(JSON.stringify(result.rows));
@@ -118,7 +118,7 @@ app.get('/cliente/:cliente', function (req, res) { return __awaiter(void 0, void
                 return [3 /*break*/, 8];
             case 5:
                 _a.trys.push([5, 7, , 8]);
-                return [4 /*yield*/, db.query("INSERT INTO cliente (id) VALUES ('" + req.params.cliente + "')")];
+                return [4 /*yield*/, db.query("INSERT INTO clientes (id) VALUES ('" + req.params.cliente + "')")];
             case 6:
                 result = _a.sent();
                 console.log(result);
@@ -139,11 +139,11 @@ app.post('/cliente', jsonParser, function (req, res) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 console.log(req.body);
-                console.log("INSERT INTO cliente VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.age + ")");
+                console.log("INSERT INTO clientes VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.admin + ")");
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("INSERT INTO cliente VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.age + ")")];
+                return [4 /*yield*/, db.query("INSERT INTO clientes VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.admin + ")")];
             case 2:
                 result = _a.sent();
                 console.log(result);
@@ -244,6 +244,30 @@ app.post('/citas', jsonParser, function (req, res) { return __awaiter(void 0, vo
             case 3:
                 err_8 = _a.sent();
                 console.error(err_8);
+                res.status(500).send('Internal Server Error');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+app.get('/citas/:id_cliente', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_9;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log(req.body);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.query("DELETE FROM citas WHERE id_cliente = '" + req.params.id_cliente + "'")];
+            case 2:
+                result = _a.sent();
+                console.log(result);
+                res.json("Datos eliminados correctamente");
+                return [3 /*break*/, 4];
+            case 3:
+                err_9 = _a.sent();
+                console.error(err_9);
                 res.status(500).send('Internal Server Error');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
