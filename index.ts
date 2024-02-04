@@ -125,16 +125,18 @@ app.post('/citas', jsonParser, async (req, res) => {
   }
 });
 
-app.get('/citas/:id_cliente', async (req, res) => {
+app.get('/citas/:dia/:hora', async (req, res) => {
   
   console.log(req.body);
   try {
-    const result = await db.query("DELETE FROM citas WHERE id_cliente = '" + req.params.id_cliente + "'");
+    console.log(`DELETE FROM citas WHERE dia = '${req.body.dia}' AND hora = '${req.body.hora}'`);
+    const result = await db.query(`DELETE FROM citas WHERE dia = '${req.body.dia}' AND hora = '${req.body.hora}'`);
+    console.log("Borrado echo")
     console.log(result);
     res.json("Datos eliminados correctamente");
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('Internal Server Error'); 
   }
 });
 

@@ -250,7 +250,7 @@ app.post('/citas', jsonParser, function (req, res) { return __awaiter(void 0, vo
         }
     });
 }); });
-app.get('/citas/:id_cliente', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.get('/citas/:dia/:hora', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_9;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -259,9 +259,11 @@ app.get('/citas/:id_cliente', function (req, res) { return __awaiter(void 0, voi
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("DELETE FROM citas WHERE id_cliente = '" + req.params.id_cliente + "'")];
+                console.log("DELETE FROM citas WHERE dia = " + req.body.dia + " AND hora = '" + req.body.hora + "'");
+                return [4 /*yield*/, db.query("DELETE FROM citas WHERE dia = " + req.body.dia + " AND hora = '" + req.body.hora + "'")];
             case 2:
                 result = _a.sent();
+                console.log("Borrado echo");
                 console.log(result);
                 res.json("Datos eliminados correctamente");
                 return [3 /*break*/, 4];
