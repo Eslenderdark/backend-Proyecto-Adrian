@@ -255,12 +255,13 @@ app.get('/citas/:dia/:hora', function (req, res) { return __awaiter(void 0, void
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log("req.body AQUI:::::");
                 console.log(req.body);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                console.log("DELETE FROM citas WHERE dia = " + req.body.dia + " AND hora = '" + req.body.hora + "'");
-                return [4 /*yield*/, db.query("DELETE FROM citas WHERE dia = " + req.body.dia + " AND hora = '" + req.body.hora + "'")];
+                console.log("DELETE FROM citas WHERE dia = '" + req.params.dia + "' AND hora = '" + req.params.hora + "'");
+                return [4 /*yield*/, db.query("DELETE FROM citas WHERE dia = '" + req.params.dia + "' AND hora = '" + req.params.hora + "'")];
             case 2:
                 result = _a.sent();
                 console.log("Borrado echo");

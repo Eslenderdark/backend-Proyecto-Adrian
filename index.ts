@@ -126,11 +126,11 @@ app.post('/citas', jsonParser, async (req, res) => {
 });
 
 app.get('/citas/:dia/:hora', async (req, res) => {
-  
+  console.log("req.body AQUI:")
   console.log(req.body);
   try {
-    console.log(`DELETE FROM citas WHERE dia = '${req.body.dia}' AND hora = '${req.body.hora}'`);
-    const result = await db.query(`DELETE FROM citas WHERE dia = '${req.body.dia}' AND hora = '${req.body.hora}'`);
+    console.log(`DELETE FROM citas WHERE dia = '${req.params.dia}' AND hora = '${req.params.hora}'`);
+    const result = await db.query(`DELETE FROM citas WHERE dia = '${req.params.dia}' AND hora = '${req.params.hora}'`);
     console.log("Borrado echo")
     console.log(result);
     res.json("Datos eliminados correctamente");
