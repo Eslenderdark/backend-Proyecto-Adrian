@@ -255,7 +255,7 @@ app.get('/citas/:dia/:hora', function (req, res) { return __awaiter(void 0, void
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("req.body AQUI:::::");
+                console.log("req.body AQUI:");
                 console.log(req.body);
                 _a.label = 1;
             case 1:
