@@ -140,6 +140,34 @@ app.get('/citas/:dia/:hora', async (req, res) => {
   }
 });
 
+app.post('/cortes', jsonParser, async (req, res) => {
+  try {
+   
+    const result = await db.query(`INSERT INTO cortes (name,tipo_de_pelo, tiempo_estimado, precio, foto) VALUES ('${req.body.name}','${req.body.tipo_de_pelo}', ${req.body.tiempo_estimado}, ${req.body.precio}, '${req.body.url}')`);
+    
+    console.log(result);
+    res.json("Nuevo peinado agregado correctamente");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error al agregar nuevo peinado');
+  }
+});
+
+app.delete('/cortes/:name', async (req, res) => {
+  try {
+    const name = req.params.name;
+    console.log(`DELETE FROM cortes WHERE name = '${name}'`);
+    const result = await db.query(`DELETE FROM cortes WHERE name = '${name}'`);
+    console.log("Borrado realizado");
+    console.log(result);
+    res.json("Datos eliminados correctamente");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`App listening on PORT ${port}`));

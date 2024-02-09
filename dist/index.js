@@ -277,5 +277,50 @@ app.get('/citas/:dia/:hora', function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
+app.post('/cortes', jsonParser, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_10;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.query("INSERT INTO cortes (name,tipo_de_pelo, tiempo_estimado, precio, foto) VALUES ('" + req.body.name + "','" + req.body.tipo_de_pelo + "', " + req.body.tiempo_estimado + ", " + req.body.precio + ", '" + req.body.url + "')")];
+            case 1:
+                result = _a.sent();
+                console.log(result);
+                res.json("Nuevo peinado agregado correctamente");
+                return [3 /*break*/, 3];
+            case 2:
+                err_10 = _a.sent();
+                console.error(err_10);
+                res.status(500).send('Error al agregar nuevo peinado');
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+app.delete('/cortes/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var name_1, result, err_11;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                name_1 = req.params.name;
+                console.log("DELETE FROM cortes WHERE name = '" + name_1 + "'");
+                return [4 /*yield*/, db.query("DELETE FROM cortes WHERE name = '" + name_1 + "'")];
+            case 1:
+                result = _a.sent();
+                console.log("Borrado realizado");
+                console.log(result);
+                res.json("Datos eliminados correctamente");
+                return [3 /*break*/, 3];
+            case 2:
+                err_11 = _a.sent();
+                console.error(err_11);
+                res.status(500).send('Error interno del servidor');
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 var port = process.env.PORT || 3000;
 app.listen(port, function () { return console.log("App listening on PORT " + port); });
