@@ -1,9 +1,10 @@
 import express, { request } from "express";
+import cors from 'cors';
 import * as db from './db-connection';
-import bodyParser from 'body-parser'
-const app = express();
-
+import bodyParser from 'body-parser';
 const jsonParser = bodyParser.json()
+const app = express();
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Hello from express and typescript');
