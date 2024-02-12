@@ -3,7 +3,7 @@ const connectionString = 'postgres://barberia_database_user:OGddn5xqz8C3gCem7EIF
 
 const pool = new Pool({
     connectionString
-   /* user: 'postgres',
+    /*user: 'postgres',
     password: '1234',
     host: 'localhost',
     port: 5432, // default Postgrades port

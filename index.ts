@@ -154,7 +154,7 @@ app.post('/cortes', jsonParser, async (req, res) => {
   }
 });
 
-app.delete('/cortes/:name', async (req, res) => {
+app.get('/cortes/:name', async (req, res) => {
   try {
     const name = req.params.name;
     console.log(`DELETE FROM cortes WHERE name = '${name}'`);
