@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -33,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -63,8 +67,8 @@ var cors_1 = __importDefault(require("cors"));
 var db = __importStar(require("./db-connection"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var jsonParser = body_parser_1.default.json();
-var app = express_1.default();
-app.use(cors_1.default());
+var app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.get('/', function (req, res) {
     res.send('Hello from express and typescript');
 });
@@ -120,7 +124,7 @@ app.get('/cliente/:cliente', function (req, res) { return __awaiter(void 0, void
                 return [3 /*break*/, 8];
             case 5:
                 _a.trys.push([5, 7, , 8]);
-                return [4 /*yield*/, db.query("INSERT INTO clientes (id) VALUES ('" + req.params.cliente + "')")];
+                return [4 /*yield*/, db.query("INSERT INTO clientes (id) VALUES ('".concat(req.params.cliente, "')"))];
             case 6:
                 result = _a.sent();
                 console.log(result);
@@ -141,11 +145,11 @@ app.post('/cliente', jsonParser, function (req, res) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 console.log(req.body);
-                console.log("INSERT INTO clientes VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.admin + ")");
+                console.log("INSERT INTO clientes VALUES (".concat(req.body.id, ", '").concat(req.body.name, "', ").concat(req.body.admin, ")"));
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("INSERT INTO clientes VALUES (" + req.body.id + ", '" + req.body.name + "', " + req.body.admin + ")")];
+                return [4 /*yield*/, db.query("INSERT INTO clientes VALUES (".concat(req.body.id, ", '").concat(req.body.name, "', ").concat(req.body.admin, ")"))];
             case 2:
                 result = _a.sent();
                 console.log(result);
@@ -189,7 +193,7 @@ app.get('/citas/:citas', function (req, res) { return __awaiter(void 0, void 0, 
                 return [3 /*break*/, 8];
             case 5:
                 _a.trys.push([5, 7, , 8]);
-                return [4 /*yield*/, db.query("INSERT INTO citas (id) VALUES ('" + req.params.citas + "')")];
+                return [4 /*yield*/, db.query("INSERT INTO citas (id) VALUES ('".concat(req.params.citas, "')"))];
             case 6:
                 result = _a.sent();
                 console.log(result);
@@ -233,11 +237,11 @@ app.post('/citas', jsonParser, function (req, res) { return __awaiter(void 0, vo
         switch (_a.label) {
             case 0:
                 console.log(req.body);
-                console.log("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ",'" + req.body.nombre + "')");
+                console.log("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('".concat(req.body.id_cliente, "',").concat(req.body.id_corte, ",").concat(req.body.precio, ",'").concat(req.body.hora, "','").concat(req.body.dia, "',").concat(req.body.col_index, ",").concat(req.body.row_index, ",'").concat(req.body.nombre, "')"));
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.query("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('" + req.body.id_cliente + "'," + req.body.id_corte + "," + req.body.precio + ",'" + req.body.hora + "','" + req.body.dia + "'," + req.body.col_index + "," + req.body.row_index + ",'" + req.body.nombre + "')")];
+                return [4 /*yield*/, db.query("INSERT INTO citas (id_cliente,id_corte,precio,hora,dia,col_index,row_index,nombre) VALUES ('".concat(req.body.id_cliente, "',").concat(req.body.id_corte, ",").concat(req.body.precio, ",'").concat(req.body.hora, "','").concat(req.body.dia, "',").concat(req.body.col_index, ",").concat(req.body.row_index, ",'").concat(req.body.nombre, "')"))];
             case 2:
                 result = _a.sent();
                 console.log(result);
@@ -262,8 +266,8 @@ app.get('/citas/:dia/:hora', function (req, res) { return __awaiter(void 0, void
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                console.log("DELETE FROM citas WHERE dia = '" + req.params.dia + "' AND hora = '" + req.params.hora + "'");
-                return [4 /*yield*/, db.query("DELETE FROM citas WHERE dia = '" + req.params.dia + "' AND hora = '" + req.params.hora + "'")];
+                console.log("DELETE FROM citas WHERE dia = '".concat(req.params.dia, "' AND hora = '").concat(req.params.hora, "'"));
+                return [4 /*yield*/, db.query("DELETE FROM citas WHERE dia = '".concat(req.params.dia, "' AND hora = '").concat(req.params.hora, "'"))];
             case 2:
                 result = _a.sent();
                 console.log("Borrado echo");
@@ -285,7 +289,7 @@ app.post('/cortes', jsonParser, function (req, res) { return __awaiter(void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.query("INSERT INTO cortes (name,tipo_de_pelo, tiempo_estimado, precio, foto) VALUES ('" + req.body.name + "','" + req.body.tipo_de_pelo + "', " + req.body.tiempo_estimado + ", " + req.body.precio + ", '" + req.body.url + "')")];
+                return [4 /*yield*/, db.query("INSERT INTO cortes (name,tipo_de_pelo, tiempo_estimado, precio, foto) VALUES ('".concat(req.body.name, "','").concat(req.body.tipo_de_pelo, "', ").concat(req.body.tiempo_estimado, ", ").concat(req.body.precio, ", '").concat(req.body.url, "')"))];
             case 1:
                 result = _a.sent();
                 console.log(result);
@@ -300,15 +304,15 @@ app.post('/cortes', jsonParser, function (req, res) { return __awaiter(void 0, v
         }
     });
 }); });
-app.delete('/cortes/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.get('/cortes/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var name_1, result, err_11;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 name_1 = req.params.name;
-                console.log("DELETE FROM cortes WHERE name = '" + name_1 + "'");
-                return [4 /*yield*/, db.query("DELETE FROM cortes WHERE name = '" + name_1 + "'")];
+                console.log("DELETE FROM cortes WHERE name = '".concat(name_1, "'"));
+                return [4 /*yield*/, db.query("DELETE FROM cortes WHERE name = '".concat(name_1, "'"))];
             case 1:
                 result = _a.sent();
                 console.log("Borrado realizado");
@@ -325,4 +329,4 @@ app.delete('/cortes/:name', function (req, res) { return __awaiter(void 0, void 
     });
 }); });
 var port = process.env.PORT || 3000;
-app.listen(port, function () { return console.log("App listening on PORT " + port); });
+app.listen(port, function () { return console.log("App listening on PORT ".concat(port)); });
